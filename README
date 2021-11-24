@@ -1,3 +1,29 @@
-Please, put your database settings. My database now only works with REST menthods, so there is no insertion script and so on.
+Running Instructions:
 
-To POST any entity please check the Entity private lines or DTO classes, they both are using in POST methods
+1.First of all you have to use MySQL, if you do not have MySQL use this link : https://www.mysql.com/downloads/
+
+2.You have to create DB named as "cafeteria" and give access to DB in application properties,
+    for example my properties:
+        spring.datasource.url=jdbc:mysql://localhost:3306/"cafeteria" !!!!
+        spring.datasource.username=root !!!!
+        spring.datasource.password=Webcam576 !!!!
+
+3.You can post only 3 entities, such as, Employee, Order, Product.
+    For the Employee and Product you have to use the format of those Entities:
+           Product :
+                    "name" : "cola",
+                    "price" : "10"
+           Employee :
+                    "name" : "yaroslav",
+                    "surname" : "borovyk",
+                    "salary" : "1000"
+   For Order posting you have to already have Employee and Product, also you will post or update Customer in the same time:
+            Order:
+                "customer_name" : "yaroslav"
+                "customer_surname" : "borovyk",
+                "employee_id" : "1",
+                "products_id" : ["cola"]
+
+4.Other API mappings ( put, get, delete ) allowed for all entities;
+
+5.Be careful, I have SEQUENCE generating, so I have to look on id in DB before using some API mappings;
