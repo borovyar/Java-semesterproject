@@ -17,8 +17,7 @@ public class OrderController {
     @PostMapping
     public ResponseEntity registerOrder(@RequestBody OrderDtoRegistrate orderDtoRegistrate) {
         try {
-            orderService.registerOrder(orderDtoRegistrate);
-            return ResponseEntity.ok("Order has been saved");
+            return ResponseEntity.ok(orderService.registerOrder(orderDtoRegistrate));
         } catch (ProductNotExistException | EmployeeNotExistException | CustomerExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
@@ -27,7 +26,7 @@ public class OrderController {
     }
 
     @GetMapping("/")
-    public ResponseEntity getOrder(@RequestParam(value = "order_id") Long id) {
+    public ResponseEntity getOrder(@RequestParam(value = "id") Long id) {
         try {
             return ResponseEntity.ok(orderService.getOrder(id));
         } catch (OrderNotExistException e) {

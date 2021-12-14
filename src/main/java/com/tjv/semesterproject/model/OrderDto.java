@@ -18,7 +18,7 @@ public class OrderDto {
     private String employee_surname;
     private List<String> products;
 
-    public static OrderDto toModel(OrderEntity order) {
+    public static OrderDto fromModel(OrderEntity order) {
         List<String> productNameList = new ArrayList<>();
         for (ProductEntity product : order.getProducts())
             productNameList.add(product.getName());

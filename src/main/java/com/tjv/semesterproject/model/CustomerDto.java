@@ -11,6 +11,11 @@ public class CustomerDto {
     private String name;
     private String surname;
 
+    public CustomerDto(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
     public static CustomerDto fromModel(CustomerEntity customer) {
         return new CustomerDto(customer.getId(), customer.getName(), customer.getSurname());
     }
