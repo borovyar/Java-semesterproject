@@ -1,5 +1,6 @@
 package com.tjv.semesterproject.controller;
 
+import com.tjv.semesterproject.exceptions.CustomerExistException;
 import com.tjv.semesterproject.exceptions.CustomerNotExistException;
 import com.tjv.semesterproject.exceptions.OrderNotExistException;
 import com.tjv.semesterproject.model.CustomerDto;
@@ -15,8 +16,20 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    @PostMapping()
+    public ResponseEntity registerCustomer(@RequestBody CustomerDto customerDto) {
+        try {
+            return ResponseEntity.ok(customerService.registerCustomer(customerDto));
+        } catch (CustomerExistException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Customer Getting Error");
+        }
+    }
+
+
     @GetMapping("/")
-    public ResponseEntity getCustomer(@RequestParam("customer_id") Long id) {
+    public ResponseEntity getCustomer(@RequestParam("id") Long id) {
         try {
             return ResponseEntity.ok(customerService.getCustomer(id));
         } catch (CustomerNotExistException e) {
@@ -26,8 +39,8 @@ public class CustomerController {
         }
     }
 
-    @GetMapping("/orders/{customer_id}/")
-    public ResponseEntity getCustomerOrder(@PathVariable("customer_id") Long customer_id,
+    @GetMapping("/{id}/orders/")
+    public ResponseEntity getCustomerOrder(@PathVariable("id") Long customer_id,
                                            @RequestParam(value = "order_id") Integer order_id) {
         try {
             return ResponseEntity.ok(customerService.getCustomerOrder(customer_id, order_id));
@@ -47,8 +60,8 @@ public class CustomerController {
         }
     }
 
-    @GetMapping("/orders/")
-    public ResponseEntity getAllCustomerOrders(@RequestParam(value = "customer_id") Long customer_id) {
+    @GetMapping("/{id}/orders")
+    public ResponseEntity getAllCustomerOrders(@PathVariable ("id") Long customer_id) {
         try {
             return ResponseEntity.ok(customerService.readAllOrders(customer_id));
         } catch (Exception e) {

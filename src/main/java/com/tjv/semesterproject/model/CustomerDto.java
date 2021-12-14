@@ -11,8 +11,12 @@ public class CustomerDto {
     private String name;
     private String surname;
 
-    public static CustomerDto toModel(CustomerEntity customer) {
+    public static CustomerDto fromModel(CustomerEntity customer) {
         return new CustomerDto(customer.getId(), customer.getName(), customer.getSurname());
+    }
+
+    public static CustomerEntity toModel(CustomerDto customerDto) {
+        return new CustomerEntity(customerDto.getName(), customerDto.getSurname());
     }
 
 }

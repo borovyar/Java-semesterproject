@@ -21,10 +21,11 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public CustomerEntity registrateCustomer(CustomerEntity customer) throws CustomerExistException {
+    public CustomerDto registerCustomer(CustomerDto customerDto) throws CustomerExistException {
+        var customer = CustomerDto.toModel(customerDto);
         if (customerRepository.findByNameAndSurname(customer.getName(), customer.getSurname()) != null)
             throw new CustomerExistException("Customer Already Exist");
-        return customerRepository.save(customer);
+        return CustomerDto.fromModel(customerRepository.save(customer));
     }
 
     public void updateCustomer(CustomerDto customerDto, Long id) throws CustomerNotExistException {
@@ -39,7 +40,7 @@ public class CustomerService {
     public CustomerDto getCustomer(Long id) throws CustomerNotExistException {
         if (customerRepository.findById(id).isEmpty())
             throw new CustomerNotExistException("Customer does not exist!");
-        return CustomerDto.toModel(customerRepository.findById(id).get());
+        return CustomerDto.fromModel(customerRepository.findById(id).get());
     }
 
     public CustomerOrderDto getCustomerOrder(Long customer_id, Integer order_id) throws CustomerNotExistException, OrderNotExistException {
@@ -61,7 +62,7 @@ public class CustomerService {
     public Collection<CustomerDto> readAll() {
         ArrayList<CustomerDto> customersDto = new ArrayList<>();
         for (CustomerEntity customer : customerRepository.findAll())
-            customersDto.add(CustomerDto.toModel(customer));
+            customersDto.add(CustomerDto.fromModel(customer));
         return customersDto;
     }
 

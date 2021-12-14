@@ -27,4 +27,8 @@ public class CustomerEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
     private List<OrderEntity> orders;
 
+    public CustomerEntity(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
 }
