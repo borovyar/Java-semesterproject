@@ -22,26 +22,27 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public void registerEmployee(EmployeeEntity employee) throws EmployeeExistException {
+    public EmployeeDto registerEmployee(EmployeeDto employeeDto) throws EmployeeExistException {
+        if( employeeDto.getId() != null )
+            throw new EmployeeExistException("Id can not be accepted");
+        var employee = EmployeeDto.toModel(employeeDto);
         if (employeeRepository.findByNameAndSurname(employee.getName(), employee.getSurname()) != null)
             throw new EmployeeExistException("Employee Already Exists");
-        employeeRepository.save(employee);
+        return EmployeeDto.fromModel(employeeRepository.save(employee));
     }
 
     public void updateEmployee(EmployeeDto employeeDto, Long id) throws EmployeeNotExistException {
-        if ( employeeRepository.findById(id).isEmpty())
+        if ( employeeRepository.findById(id).isEmpty() )
             throw new EmployeeNotExistException("Employee doesn't Exist!");
-        EmployeeEntity employee = employeeRepository.findById(id).get();
-        employee.setName(employeeDto.getName());
-        employee.setSurname(employeeDto.getSurname());
-        employee.setSalary(employeeDto.getSalary());
+        var employee = EmployeeDto.toModel(employeeDto);
+        employee.setId(employeeRepository.findById(id).get().getId());
         employeeRepository.save(employee);
     }
 
     public EmployeeDto getEmployee(Long id) throws EmployeeNotExistException {
         if (employeeRepository.findById(id).isEmpty())
             throw new EmployeeNotExistException("Employee does not exist!");
-        return EmployeeDto.toModel(employeeRepository.findById(id).get());
+        return EmployeeDto.fromModel(employeeRepository.findById(id).get());
     }
 
     public EmployeeOrderDto getEmployeeOrder(Long employee_id, Integer order_id) throws OrderNotExistException, EmployeeNotExistException {
@@ -62,7 +63,7 @@ public class EmployeeService {
     public Collection<EmployeeDto> readAll() {
         ArrayList<EmployeeDto> employees = new ArrayList<>();
         for (EmployeeEntity employee : employeeRepository.findAll())
-            employees.add(EmployeeDto.toModel(employee));
+            employees.add(EmployeeDto.fromModel(employee));
         return employees;
     }
 

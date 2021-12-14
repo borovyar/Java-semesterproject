@@ -30,4 +30,9 @@ public class EmployeeEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL)
     private List<OrderEntity> orders;
 
+    public EmployeeEntity(String name, String surname, Long salary) {
+        this.name = name;
+        this.surname = surname;
+        this.salary = salary;
+    }
 }

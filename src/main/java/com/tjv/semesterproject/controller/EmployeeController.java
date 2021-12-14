@@ -18,10 +18,9 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping
-    public ResponseEntity registerEmployee(@RequestBody EmployeeEntity employee) {
+    public ResponseEntity registerEmployee(@RequestBody EmployeeDto employee) {
         try {
-            employeeService.registerEmployee(employee);
-            return ResponseEntity.ok("Employee has been saved");
+            return ResponseEntity.ok(employeeService.registerEmployee(employee));
         } catch (EmployeeExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
@@ -30,7 +29,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/")
-    public ResponseEntity getEmployee(@RequestParam(value = "employee_id") Long id) {
+    public ResponseEntity getEmployee(@RequestParam(value = "id") Long id) {
         try {
             return ResponseEntity.ok(employeeService.getEmployee(id));
         } catch (EmployeeNotExistException e) {
@@ -40,7 +39,7 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/orders/{employee_id}/")
+    @GetMapping("/{employee_id}/orders/")
     public ResponseEntity getEmployeeOrder(@PathVariable("employee_id") Long employee_id,
                                       @RequestParam(value = "order_id") Integer order_id) {
         try {
@@ -61,7 +60,7 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/orders/{id}")
+    @GetMapping("/{id}/orders")
     public ResponseEntity getAllOrders(@PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(employeeService.readAllOrders(id));

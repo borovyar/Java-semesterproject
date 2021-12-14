@@ -10,7 +10,11 @@ public class ProductDto {
     private String name;
     private Long price;
 
-    public static ProductDto toModel(ProductEntity product) {
+    public static ProductDto fromModel(ProductEntity product) {
         return new ProductDto(product.getName(), product.getPrice());
+    }
+
+    public static ProductEntity toModel(ProductDto productDto) {
+        return new ProductEntity(productDto.getName(), productDto.getPrice());
     }
 }

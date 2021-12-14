@@ -12,7 +12,11 @@ public class EmployeeDto {
     private String surname;
     private Long salary;
 
-    public static EmployeeDto toModel(EmployeeEntity employee) {
+    public static EmployeeDto fromModel(EmployeeEntity employee) {
         return new EmployeeDto(employee.getId(), employee.getName(), employee.getSurname(), employee.getSalary());
+    }
+
+    public static EmployeeEntity toModel(EmployeeDto employeeDto) {
+        return new EmployeeEntity(employeeDto.getName(), employeeDto.getSurname(), employeeDto.getSalary());
     }
 }

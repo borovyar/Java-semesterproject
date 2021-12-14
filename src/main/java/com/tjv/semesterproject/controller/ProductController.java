@@ -18,10 +18,9 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping
-    public ResponseEntity registerProduct(@RequestBody ProductEntity product) {
+    public ResponseEntity registerProduct(@RequestBody ProductDto product) {
         try {
-            productService.registerProduct(product);
-            return ResponseEntity.ok("Product has been saved");
+            return ResponseEntity.ok(productService.registerProduct(product));
         } catch (ProductExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
@@ -30,7 +29,7 @@ public class ProductController {
     }
 
     @GetMapping("/")
-    public ResponseEntity getProduct(@RequestParam(name = "product_id") String id) {
+    public ResponseEntity getProduct(@RequestParam(name = "id") String id) {
         try {
             return ResponseEntity.ok(productService.getProduct(id));
         } catch (ProductNotExistException e) {
@@ -40,8 +39,8 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/orders/{product_id}/")
-    public ResponseEntity getProductOrder(@PathVariable("product_id") String product_id,
+    @GetMapping("/{id}/orders/")
+    public ResponseEntity getProductOrder(@PathVariable("id") String product_id,
                                           @RequestParam(name = "order_id") Integer order_id) {
         try {
             return ResponseEntity.ok(productService.getProductOrder(product_id, order_id));
@@ -61,8 +60,8 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/orders/{product_id}")
-    public ResponseEntity getAllProductOrders(@PathVariable("product_id") String product_id) {
+    @GetMapping("/{id}/orders")
+    public ResponseEntity getAllProductOrders(@PathVariable("id") String product_id) {
         try {
             return ResponseEntity.ok(productService.readAllOrders(product_id));
         } catch (Exception e) {

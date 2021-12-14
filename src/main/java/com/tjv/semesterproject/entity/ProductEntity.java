@@ -29,5 +29,9 @@ public class ProductEntity {
     public void addOrder ( OrderEntity order){ this.orders.add(order); }
     public void removeOrder ( OrderEntity order){this.orders.remove(order);}
 
+    public ProductEntity(String name, Long price) {
+        this.name = name;
+        this.price = price;
+    }
 }
 

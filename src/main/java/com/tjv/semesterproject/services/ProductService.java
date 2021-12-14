@@ -21,10 +21,11 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public void registerProduct(ProductEntity entity) throws ProductExistException {
-        if (productRepository.findById(entity.getName()).isPresent())
+    public ProductDto registerProduct(ProductDto productDto) throws ProductExistException {
+        var product = ProductDto.toModel(productDto);
+        if (productRepository.findById(product.getName()).isPresent())
             throw new ProductExistException("Product Already Exist");
-        productRepository.save(entity);
+        return ProductDto.fromModel(productRepository.save(product));
     }
 
     public void updateProduct(ProductDto productDto, String id) throws ProductNotExistException {
@@ -38,7 +39,7 @@ public class ProductService {
     public ProductDto getProduct(String id) throws ProductNotExistException {
         if (productRepository.findById(id).isEmpty())
             throw new ProductNotExistException("Product does not exist!");
-        return ProductDto.toModel(productRepository.findById(id).get());
+        return ProductDto.fromModel(productRepository.findById(id).get());
     }
 
     public ProductOrderDto getProductOrder(String product_id, Integer order_id) throws ProductNotExistException, OrderNotExistException {
@@ -61,7 +62,7 @@ public class ProductService {
     public Collection<ProductDto> readAll() {
         Set<ProductDto> productsDto = new HashSet<>();
         for (ProductEntity product : productRepository.findAll())
-            productsDto.add(ProductDto.toModel(product));
+            productsDto.add(ProductDto.fromModel(product));
         return productsDto;
     }
 
