@@ -1,0 +1,108 @@
+1639495846295:up
+1639496679177:exit
+1639496709388:create-employee
+1639496732045:create-employee job ss 222
+1639496756582:create-employee job ss
+1639496763727:create-employee job ss 1
+1639497044696:create-employee job ss 22
+1639497054366:create-employee job ss 2222
+1639528139745:exit
+1639528667309:add 1 2
+1639528686012:create-employee name surname 112
+1639528763778:create-employee name surname 121
+1639528809160:help
+1639529085946:create-employee name surnmae 11212
+1639529171238:help
+1639529189648:set-employee-id 1
+1639529246357:help
+1639529253584:set-employee-id 2
+1639529267384:print-employee
+1639530631701:create-employee name surrname 1111
+1639530671323:create-employee naem surname1 12223
+1639530705974:help
+1639530714757:set-employee-id 1
+1639530717722:set-employee-id 2
+1639530801922:help
+1639530810484:set-employee-id 2
+1639531000372:print-emlpoyee
+1639531008851:print-employee
+1639531092475:help
+1639531107922:create-employee aa gg 12233
+1639531129259:set-employee-id 14
+1639531135984:print-employee
+1639531138877:help
+1639531166511:update-employee a 12 144444
+1639531172812:print-employee
+1639531181304:delete-user
+1639531187999:print-employee
+1639531275766:delete-user
+1639531397125:help
+1639531405929:update-employee aa ss 22121
+1639531417018:set-employee-id 2
+1639531437554:unset-employee-id
+1639531445446:list-all-employees
+1639533681323:exit
+1639533709173:help
+1639533727333:exit
+1639534089273:help
+1639534107303:create-product cola 11
+1639534124805:set-product-name cola
+1639534243280:create-product cola 11
+1639534306504:set-product-name cola
+1639534320005:print-product
+1639534325803:delete-product
+1639534340422:help
+1639535864884:create-customer gggg wwwww
+1639535878639:set-customer-id 15
+1639535890114:print-customer
+1639535897595:update-customer ss ww
+1639535902443:print-customer
+1639535913319:delete-customer
+1639535915156:f
+1639535944711:list-all-customers
+1639537864156:help
+1639537882459:list-all-orders
+1639537914796:help
+1639537924134:list-all-orders
+1639538259462:list-all-employees
+1639538283644:create-order fddd tt 1 ["cola"]
+1639538461613:create-order fddd tt 1 [cola]
+1639538473598:create-order fddd tt 1 cola
+1639538718311:create-order fddd tt 1 "cola"
+1639538926611:help
+1639538938356:create-order aa www 1 cola
+1639539073249:create-order aa www 1 pepsi
+1639539223596:set-order-id 19
+1639539295874:print-order
+1639539461115:set-order-id 19
+1639539464623:print-order
+1639539552936:set-order-id 19
+1639539558590:print-order
+1639539657700:set-order-id 19
+1639539663280:print-order
+1639539742467:set-order-id 19
+1639539746153:print-order
+1639540556155:set-order-id 19
+1639540587150:print-order
+1639540686489:set-order-id 19
+1639540691046:print-order
+1639540700835:help
+1639540743485:update-product aa www 1 pepsi
+1639540763476:update-order aa www 1 pepsi
+1639540771105:print-order
+1639540853723:update-order aa www 1 pepsi
+1639540857591:print-order
+1639540915637:update-order aa www 1 pepsi
+1639540919741:print-order
+1639541084528:update-order aa www 1 pepsi
+1639541088287:print-order
+1639568419543:set-order-id 19
+1639568423630:print-order
+1639568451719:updateorder aa www 1 pepsi
+1639568457579:help
+1639568471923:update-order aa www 1 pepsi
+1639568475761:print-order
+1639568680703:update-order aa www 1 pepsi
+1639572041926:help
+1639572080925:set-employee-id 1
+1639572098672:create-order nn www pepsi
