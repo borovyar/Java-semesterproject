@@ -21,7 +21,7 @@ public class OrderConsole {
         this.orderView = orderView;
     }
 
-    @ShellMethod("Retrieve details on current order")
+    @ShellMethod("Retrieve detals on current order")
     @ShellMethodAvailability("currentOrderNeededAvailability")
     public void printOrder() {
         try {
