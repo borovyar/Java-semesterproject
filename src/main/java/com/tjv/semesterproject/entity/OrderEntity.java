@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,7 +26,7 @@ public class OrderEntity {
     @JoinColumn(name = "employee_id")
     private EmployeeEntity employee;
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "orders", cascade = CascadeType.REFRESH)
-    private List<ProductEntity> products;
+    private List<ProductEntity> products = new ArrayList<>();
 
     public OrderEntity(CustomerEntity customer, EmployeeEntity employee) {
         this.customer = customer;
@@ -34,5 +35,12 @@ public class OrderEntity {
 
     public void removeProduct( ProductEntity product ) {
         this.products.remove(product);
+    }
+
+    public void setUpdatedProducts(List<ProductEntity> products) {
+        for( ProductEntity product : this.products )
+            product.removeOrder(this);
+        this.products.clear();
+        this.products = products;
     }
 }

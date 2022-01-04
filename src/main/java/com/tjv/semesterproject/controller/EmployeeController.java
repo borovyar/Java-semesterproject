@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
@@ -28,8 +30,8 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/")
-    public ResponseEntity getEmployee(@RequestParam(value = "id") Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity getEmployee(@PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(employeeService.getEmployee(id));
         } catch (EmployeeNotExistException e) {
@@ -39,8 +41,8 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/{employee_id}/orders/")
-    public ResponseEntity getEmployeeOrder(@PathVariable("employee_id") Long employee_id,
+    @GetMapping("/{id}/orders/")
+    public ResponseEntity getEmployeeOrder(@PathVariable("id") Long employee_id,
                                       @RequestParam(value = "order_id") Integer order_id) {
         try {
             return ResponseEntity.ok(employeeService.getEmployeeOrder(employee_id, order_id));

@@ -28,8 +28,8 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/")
-    public ResponseEntity getProduct(@RequestParam(name = "id") String id) {
+    @GetMapping("/{id}")
+    public ResponseEntity getProduct(@PathVariable("id") String id) {
         try {
             return ResponseEntity.ok(productService.getProduct(id));
         } catch (ProductNotExistException e) {

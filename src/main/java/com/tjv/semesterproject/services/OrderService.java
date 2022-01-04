@@ -47,6 +47,7 @@ public class OrderService {
 
         createProductList(orderDtoRegistrate, order, products);
         order.setProducts(products);
+
         return OrderDto.fromModel(orderRepository.save(order));
     }
 
@@ -67,10 +68,10 @@ public class OrderService {
             throw new EmployeeNotExistException("employee does not exist");
         order.setEmployee(employeeRepository.findById(orderDto.getEmployee_id()).get());
 
-        List<ProductEntity> products = new ArrayList<>();
+        ArrayList<ProductEntity> products = new ArrayList<>();
         createProductList(orderDto, order, products);
 
-        order.setProducts(products);
+        order.setUpdatedProducts(products);
         orderRepository.save(order);
     }
 
@@ -101,7 +102,7 @@ public class OrderService {
 
     public Collection<OrderDto> readAll() {
         Set<OrderDto> orders = new HashSet<>();
-        for (OrderEntity order : orderRepository.findAll())
+        for (OrderEntity order   : orderRepository.findAll())
             orders.add(OrderDto.fromModel(order));
         return orders;
     }

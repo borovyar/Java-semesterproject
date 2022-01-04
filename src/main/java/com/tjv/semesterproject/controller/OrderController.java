@@ -25,8 +25,8 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/")
-    public ResponseEntity getOrder(@RequestParam(value = "id") Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity getOrder(@PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(orderService.getOrder(id));
         } catch (OrderNotExistException e) {
