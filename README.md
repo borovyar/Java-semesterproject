@@ -1,6 +1,6 @@
 Running Instructions:
 
-1.First of all you have to use MySQL, if you do not have MySQL use this link : https://www.mysql.com/downloads/
+1.First, you have to use MySQL, if you do not have MySQL use this link : https://www.mysql.com/downloads/
 
 2.You have to create DB named as "cafeteria" and give access to DB in application properties,
     for example my properties:
@@ -8,7 +8,7 @@ Running Instructions:
         spring.datasource.username=root !!!!
         spring.datasource.password=Webcam576 !!!!
 
-3.You can post only 3 entities, such as, Employee, Order, Product.
+3.You can post all entities.
     For the Employee and Product you have to use the format of those Entities:
            Product :
                     "name" : "cola",
@@ -23,7 +23,16 @@ Running Instructions:
                 "customer_surname" : "borovyk",
                 "employee_id" : "1",
                 "products_id" : ["cola"]
+    Posting Customer is not recommended. Customer has to be posted bby Order Posting Method.
 
 4.Other API mappings ( put, get, delete ) allowed for all entities;
 
 5.Be careful, I have SEQUENCE generating, so I have to look on id in DB before using some API mappings;
+
+6.For the automated tests you have to create DB named "cafeteriatest".
+    The tests covered whole business, data layer and REST API. I am not using CI via GitHub.
+
+7.Some Methods are present but generally there is no more usage of them ( example -> getEmployeeOrder ).
+    I left them to show that I could create more Methods for the business and API logic.
+
+8.Also, main additional logic and additional operations are around Orders with the Products.
