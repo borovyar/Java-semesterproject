@@ -54,7 +54,7 @@ public class CustomerService {
     }
 
     public void deleteCustomer(Long id) throws CustomerNotExistException {
-        if(!customerRepository.existsById(id))
+        if(customerRepository.findById(id).isEmpty())
             throw new CustomerNotExistException("Customer does not exist!");
         customerRepository.deleteById(id);
     }

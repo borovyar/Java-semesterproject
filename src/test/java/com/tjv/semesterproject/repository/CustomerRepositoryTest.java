@@ -1,7 +1,6 @@
 package com.tjv.semesterproject.repository;
 
 import com.tjv.semesterproject.entity.CustomerEntity;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

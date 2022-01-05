@@ -1,7 +1,6 @@
 package com.tjv.semesterproject.services;
 
 import com.tjv.semesterproject.entity.EmployeeEntity;
-import com.tjv.semesterproject.exceptions.EmployeeExistException;
 import com.tjv.semesterproject.exceptions.EmployeeNotExistException;
 import com.tjv.semesterproject.model.EmployeeDto;
 import com.tjv.semesterproject.repository.EmployeeRepository;
@@ -16,7 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,14 +28,14 @@ public class EmployeeServiceTest {
     private EmployeeRepository employeeRepository;
 
     private EmployeeEntity employee;
-    private final EmployeeEntity dummy = new EmployeeEntity();
+    private final EmployeeEntity invalidEmployee = new EmployeeEntity();
 
     @BeforeEach
     void setUp() {
         employee = new EmployeeEntity("test", "test", (long) 1);
         employee.setId((long) 1);
         Mockito.when(employeeRepository.save(employee)).thenReturn(employee);
-        Mockito.when(employeeRepository.save(dummy)).thenReturn
+        Mockito.when(employeeRepository.save(invalidEmployee)).thenReturn
                 (new EmployeeEntity(null, null, null));
     }
 
@@ -79,7 +77,7 @@ public class EmployeeServiceTest {
     @Test
     @Order(5)
     public void updateInvalidTest() {
-        this.employee = employeeRepository.save(this.dummy);
+        this.employee = employeeRepository.save(this.invalidEmployee);
 
         Mockito.verify(employeeRepository, Mockito.times(1)).save(this.employee);
 
@@ -103,7 +101,7 @@ public class EmployeeServiceTest {
     @Test
     @Order(6)
     public void getInvalidTest(){
-        var savedEmployee = employeeRepository.save(this.dummy);
+        var savedEmployee = employeeRepository.save(this.invalidEmployee);
         var savedDtoEmployee = new EmployeeDto(null, "test", "test", (long) 1);
 
         if(savedEmployee.equals(employee))
@@ -119,15 +117,15 @@ public class EmployeeServiceTest {
     public void deleteTest() throws EmployeeNotExistException {
         Mockito.when(employeeRepository.findById(employee.getId())).thenReturn(Optional.of(employee));
 
-        employeeService.deleteEmployee(employeeRepository.findById(employee.getId()).get().getId());
+        employeeService.deleteEmployee(employee.getId());
         Mockito.verify(employeeRepository, Mockito.atLeast(1)).deleteById(employee.getId());
     }
 
     @Test
     @Order(8)
     public void deleteInvalidTest(){
-        Assertions.assertThrows(NoSuchElementException.class,
-                () -> employeeService.deleteEmployee(employeeRepository.findById(employee.getId()).get().getId()));
+        Assertions.assertThrows(EmployeeNotExistException.class,
+                () -> employeeService.deleteEmployee(employee.getId()));
     }
 
     @Test

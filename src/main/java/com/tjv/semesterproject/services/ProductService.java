@@ -54,8 +54,10 @@ public class ProductService {
     public void deleteProduct(String id) throws ProductNotExistException {
         if( productRepository.findById(id).isEmpty())
             throw new ProductNotExistException("product does not exist");
-        for(OrderEntity order : productRepository.findById(id).get().getOrders())
-            order.removeProduct(productRepository.findById(id).get());
+        if(productRepository.findById(id).get().getOrders() != null) {
+            for (OrderEntity order : productRepository.findById(id).get().getOrders())
+                order.removeProduct(productRepository.findById(id).get());
+        }
         productRepository.deleteById(id);
     }
 
