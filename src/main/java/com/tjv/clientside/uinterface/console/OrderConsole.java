@@ -9,7 +9,6 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
 import org.springframework.web.reactive.function.client.WebClientException;
 
-import java.util.ArrayList;
 
 @ShellComponent
 public class OrderConsole {

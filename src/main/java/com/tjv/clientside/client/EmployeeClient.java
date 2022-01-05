@@ -45,19 +45,17 @@ public class EmployeeClient {
 
 
     public EmployeeDto create(EmployeeDto employeeDto) {
-        return employeeWebClient.post() // HTTP POST
+        return employeeWebClient.post()
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)// set HTTP header
-                .bodyValue(employeeDto) // POST data
-                .retrieve() // request specification finished
-                .bodyToMono(EmployeeDto.class) // interpret response body as one element
-                .block(Duration.ofSeconds(2)); // call synchronously with timeout
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(employeeDto)
+                .retrieve()
+                .bodyToMono(EmployeeDto.class)
+                .block(Duration.ofSeconds(2));
     }
 
     public OrderDto registerOrder (String name, String surname, String[] products){
-        return orderWebClient.post()
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
+        return orderWebClient.post().contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                 .bodyValue(new OrderDtoRegister(name, surname, this.employeeId, products))
                 .retrieve()
                 .bodyToMono(OrderDto.class)
@@ -66,11 +64,11 @@ public class EmployeeClient {
 
 
     public Collection<EmployeeDto> readAll() {
-        return employeeWebClient.get() // HTTP GET
-                .retrieve() // request specification finished
-                .bodyToFlux(EmployeeDto.class) // interpret response body as a collection
-                .collectList() // collect all elements as list
-                .block(Duration.ofSeconds(5)); // call synchronously with timeout
+        return employeeWebClient.get()
+                .retrieve()
+                .bodyToFlux(EmployeeDto.class)
+                .collectList()
+                .block(Duration.ofSeconds(5));
     }
 
     public EmployeeDto readById() {
@@ -86,31 +84,31 @@ public class EmployeeClient {
         if (employeeId == null)
             throw new IllegalStateException("ID does not set");
         employeeDto.setId(employeeId);
-        employeeWebClient.put() // HTTP PUT
-                .uri(ID_URI, employeeId) // URI /{id}
-                .contentType(MediaType.APPLICATION_JSON) // HTTP header
-                .bodyValue(employeeDto) // HTTP body
-                .retrieve() // request specification finished
-                .toBodilessEntity() // do not extract HTTP response body
+        employeeWebClient.put()
+                .uri(ID_URI, employeeId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(employeeDto)
+                .retrieve()
+                .toBodilessEntity()
                 .subscribe(x -> {
                 }, e -> {
                     setEmployeeId(null);
                     employeeView.printErrorUpdate(e);
-                }) // register callbacks: for success and for error
+                })
         ;
     }
 
     public void delete() {
         if (employeeId == null)
             throw new IllegalStateException("ID does not set");
-        employeeWebClient.delete() // HTTP DELETE
-                .uri(ID_URI, employeeId) // URI
-                .retrieve() // request specification finished
-                .toBodilessEntity() // do not extract HTTP response body
+        employeeWebClient.delete()
+                .uri(ID_URI, employeeId)
+                .retrieve()
+                .toBodilessEntity()
                 .subscribe(x -> setEmployeeId(null), e -> {
                     setEmployeeId(null);
                     employeeView.printErrorGeneric(e);
-                }) // register callbacks: for success and for error
+                })
         ;
     }
 }

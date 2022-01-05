@@ -1,7 +1,6 @@
 package com.tjv.clientside.uinterface.console;
 
 import com.tjv.clientside.client.EmployeeClient;
-import com.tjv.clientside.client.OrderClient;
 import com.tjv.clientside.model.EmployeeDto;
 import com.tjv.clientside.uinterface.view.EmployeeView;
 import com.tjv.clientside.uinterface.view.OrderView;
@@ -39,7 +38,7 @@ public class EmployeeConsole {
     public void createEmployee(String name, String surname, Long salary) {
         try {
             employeeView.printEmployee(employeeClient.create(new EmployeeDto(name, surname, salary)));
-        } catch (WebClientException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

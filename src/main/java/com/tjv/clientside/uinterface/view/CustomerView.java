@@ -1,7 +1,6 @@
 package com.tjv.clientside.uinterface.view;
 
 import com.tjv.clientside.model.CustomerDto;
-import com.tjv.clientside.model.ProductDto;
 import org.springframework.boot.ansi.AnsiColor;
 import org.springframework.boot.ansi.AnsiOutput;
 import org.springframework.shell.ExitRequest;
