@@ -48,8 +48,7 @@ public class OrderController {
     @PutMapping("/{id}")
     public ResponseEntity updateOrder(@RequestBody OrderDtoRegistrate orderDto, @PathVariable Long id) {
         try {
-            orderService.updateOrder(orderDto, id);
-            return ResponseEntity.ok("Order has been updated");
+            return ResponseEntity.ok(orderService.updateOrder(orderDto, id));
         } catch (OrderNotExistException | CustomerNotExistException | EmployeeNotExistException | ProductNotExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {

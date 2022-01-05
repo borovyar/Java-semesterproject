@@ -3,9 +3,11 @@ package com.tjv.semesterproject.model;
 import com.tjv.semesterproject.entity.CustomerEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class CustomerDto {
     private Long id;
     private String name;

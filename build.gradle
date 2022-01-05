@@ -21,10 +21,14 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.2'
 	implementation 'org.springframework.boot:spring-boot-starter-web:2.6.2'
+	implementation 'io.vertx:vertx-core:4.2.2'
 	runtimeOnly 'mysql:mysql-connector-java:8.0.25'
 	compileOnly 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.2'
+	testCompileOnly 'com.fasterxml.jackson.core:jackson-core:2.13.1'
+	testCompileOnly 'com.fasterxml.jackson.core:jackson-annotations:2.13.1'
+	testCompileOnly 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
 }
 
 test {

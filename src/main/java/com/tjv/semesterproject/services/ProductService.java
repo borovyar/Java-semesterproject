@@ -28,12 +28,12 @@ public class ProductService {
         return ProductDto.fromModel(productRepository.save(product));
     }
 
-    public void updateProduct(ProductDto productDto, String id) throws ProductNotExistException {
+    public ProductDto updateProduct(ProductDto productDto, String id) throws ProductNotExistException {
         if (productRepository.findById(id).isEmpty())
             throw new ProductNotExistException("Product doesn't Exist");
         ProductEntity product = productRepository.findById(id).get();
         product.setPrice(productDto.getPrice());
-        productRepository.save(product);
+        return ProductDto.fromModel(productRepository.save(product));
     }
 
     public ProductDto getProduct(String id) throws ProductNotExistException {
@@ -52,7 +52,7 @@ public class ProductService {
     }
 
     public void deleteProduct(String id) throws ProductNotExistException {
-        if( productRepository.findById(id).isEmpty())
+        if(productRepository.findById(id).isEmpty())
             throw new ProductNotExistException("product does not exist");
         if(productRepository.findById(id).get().getOrders() != null) {
             for (OrderEntity order : productRepository.findById(id).get().getOrders())

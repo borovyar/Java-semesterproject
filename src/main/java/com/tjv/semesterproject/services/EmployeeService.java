@@ -31,12 +31,12 @@ public class EmployeeService {
         return EmployeeDto.fromModel(employeeRepository.save(employee));
     }
 
-    public void updateEmployee(EmployeeDto employeeDto, Long id) throws EmployeeNotExistException {
+    public EmployeeDto updateEmployee(EmployeeDto employeeDto, Long id) throws EmployeeNotExistException {
         if ( employeeRepository.findById(id).isEmpty() )
             throw new EmployeeNotExistException("Employee doesn't Exist!");
         var employee = EmployeeDto.toModel(employeeDto);
         employee.setId(employeeRepository.findById(id).get().getId());
-        employeeRepository.save(employee);
+        return EmployeeDto.fromModel(employeeRepository.save(employee));
     }
 
     public EmployeeDto getEmployee(Long id) throws EmployeeNotExistException {

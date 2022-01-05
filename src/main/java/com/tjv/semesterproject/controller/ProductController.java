@@ -73,8 +73,7 @@ public class ProductController {
     public ResponseEntity updateProduct(@RequestBody ProductDto productDto,
                                         @PathVariable("id") String id) {
         try {
-            productService.updateProduct(productDto, id);
-            return ResponseEntity.ok("Product has been saved");
+            return ResponseEntity.ok(productService.updateProduct(productDto, id));
         } catch (ProductNotExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {

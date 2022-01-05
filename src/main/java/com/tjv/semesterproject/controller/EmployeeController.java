@@ -35,7 +35,7 @@ public class EmployeeController {
         try {
             return ResponseEntity.ok(employeeService.getEmployee(id));
         } catch (EmployeeNotExistException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Employee Getting Error");
         }
@@ -74,8 +74,7 @@ public class EmployeeController {
     @PutMapping("/{id}")
     public ResponseEntity updateEmployee(@RequestBody EmployeeDto employeeDto, @PathVariable("id") Long id) {
         try {
-            employeeService.updateEmployee(employeeDto, id);
-            return ResponseEntity.ok("Employee has been updated");
+            return ResponseEntity.ok(employeeService.updateEmployee(employeeDto, id));
         } catch (EmployeeNotExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
@@ -89,7 +88,7 @@ public class EmployeeController {
             employeeService.deleteEmployee(id);
             return ResponseEntity.ok("Employee with id:" + id + " has been deleted");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Employee Deleting Error");
+            return ResponseEntity.notFound().build();
         }
     }
 

@@ -4,11 +4,13 @@ import com.tjv.semesterproject.entity.OrderEntity;
 import com.tjv.semesterproject.entity.ProductEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class OrderDto {
     private Long id;
     private String customer_name;

@@ -51,7 +51,7 @@ public class OrderService {
         return OrderDto.fromModel(orderRepository.save(order));
     }
 
-    public void updateOrder(OrderDtoRegistrate orderDto, Long id) throws OrderNotExistException,
+    public OrderDto updateOrder(OrderDtoRegistrate orderDto, Long id) throws OrderNotExistException,
             CustomerNotExistException, EmployeeNotExistException, ProductNotExistException {
         if (orderRepository.findById(id).isEmpty())
             throw new OrderNotExistException("Order Doesn't Exist");
@@ -72,7 +72,7 @@ public class OrderService {
         createProductList(orderDto, order, products);
 
         order.setUpdatedProducts(products);
-        orderRepository.save(order);
+        return OrderDto.fromModel(orderRepository.save(order));
     }
 
     private void createProductList(OrderDtoRegistrate orderDto, OrderEntity order, List<ProductEntity> products)

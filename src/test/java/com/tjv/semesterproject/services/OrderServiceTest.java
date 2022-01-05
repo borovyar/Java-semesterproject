@@ -27,10 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class OrderServiceTest {
     @Autowired
     private OrderService orderService;
-    @Autowired
-    private CustomerService customerService;
-    @Autowired
-    private EmployeeService employeeService;
 
     @MockBean
     private OrderRepository orderRepository;
@@ -59,8 +55,6 @@ public class OrderServiceTest {
     @Order(1)
     public void injectionTest(){
         assertThat(orderService).isNotNull();
-        assertThat(customerService).isNotNull();
-        assertThat(employeeService).isNotNull();
         assertThat(orderRepository).isNotNull();
     }
 

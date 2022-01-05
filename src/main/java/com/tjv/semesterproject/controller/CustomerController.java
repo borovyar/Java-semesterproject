@@ -28,8 +28,8 @@ public class CustomerController {
     }
 
 
-    @GetMapping("/")
-    public ResponseEntity getCustomer(@RequestParam("id") Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity getCustomer(@PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(customerService.getCustomer(id));
         } catch (CustomerNotExistException e) {
@@ -72,8 +72,7 @@ public class CustomerController {
     @PutMapping("/{id}")
     public ResponseEntity updateCustomer(@RequestBody CustomerDto customerDto, @PathVariable("id") Long id) {
         try {
-            customerService.updateCustomer(customerDto, id);
-            return ResponseEntity.ok("Customer has been saved");
+            return ResponseEntity.ok(customerService.updateCustomer(customerDto, id));
         } catch (CustomerNotExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
@@ -85,7 +84,7 @@ public class CustomerController {
     public ResponseEntity deleteCustomer(@PathVariable("id") Long id) {
         try {
             customerService.deleteCustomer(id);
-            return ResponseEntity.ok("Customer with id: " + id + " has been deleted");
+            return ResponseEntity.ok("Customer with id:" + id + " has been deleted");
         } catch( CustomerNotExistException e){
             return ResponseEntity.badRequest().body( e.getMessage() );
         }

@@ -28,13 +28,13 @@ public class CustomerService {
         return CustomerDto.fromModel(customerRepository.save(customer));
     }
 
-    public void updateCustomer(CustomerDto customerDto, Long id) throws CustomerNotExistException {
+    public CustomerDto updateCustomer(CustomerDto customerDto, Long id) throws CustomerNotExistException {
         if (customerRepository.findById(id).isEmpty())
             throw new CustomerNotExistException("Customer doesn't Exist!");
         CustomerEntity customer = customerRepository.findById(id).get();
         customer.setName(customerDto.getName());
         customer.setSurname(customerDto.getSurname());
-        customerRepository.save(customer);
+        return CustomerDto.fromModel(customerRepository.save(customer));
     }
 
     public CustomerDto getCustomer(Long id) throws CustomerNotExistException {
